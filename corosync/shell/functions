@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#  /etc/corosync/authkey
+# corosync-keygen #no arguments required
+

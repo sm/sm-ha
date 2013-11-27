@@ -1,0 +1,28 @@
+#!/usr/bin/env sh 
+
+pacemaker_preconfigure() {
+  # http://clusterlabs.org/wiki/SourceInstall
+  #
+  # REQUIRE: pkgconfig and autoconf
+  #
+  # Prereq is libqb is a library with the primary purpose of providing high performance client server reusable features.
+  # It provides high performance logging, tracing, ipc, and poll.
+  # 
+  #
+  # #git clone git://github.com/asalkeld/libqb.git && cd libqb && ./autogen.sh && ./configure --prefix=$PREFIX
+  # make
+  # sudo make install
+
+
+
+  #export PREFIX=/usr
+  #getent group haclient >/dev/null || groupadd -r haclient
+  # sudo ln -s /opt/local/share/aclocal/pkg.m4 /usr/share/aclocal/
+
+  #getent passwd hacluster >/dev/null || useradd -r -g haclient -d /var/lib/heartbeat/cores/hacluster -s /sbin/nologin -c "cluster user" hacluster
+
+  # ./autogen.sh && ./configure --prefix=$PREFIX
+}
+
+
+# http://clusterlabs.org/wiki/Initial_Configuration

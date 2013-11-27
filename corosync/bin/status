@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+ps auxww | awk 'BEGIN{getline;print $0}/[c]orosync:/'
+
