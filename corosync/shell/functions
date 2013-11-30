@@ -3,3 +3,74 @@
 #  /etc/corosync/authkey
 # corosync-keygen #no arguments required
 
+corosync_prefetch()
+{
+  trace_filter package || set -o xtrace
+  package define \
+    base_url "https://github.com/corosync/corosync/archive" \
+    file "v${package_version}.${archive_format}"
+}
+
+corosync_fetch() 
+{
+  trace_filter package || set -o xtrace
+  if [ ! -f "${sm_path}/archives/${package_file}" ]
+  then
+    curl -s -S -L "${package_base_url}/${package_file}" -o "${sm_path}/archives/corosync-${package_file}"
+  fi
+  path enter "${sm_path}/src"
+  tar -zxf "${sm_path}/archives/corosync-${package_file}" 
+  
+}
+
+corosync_os_dependencies_install()
+{ 
+  trace_filter corosync || set -o xtrace
+  #warn "${action} is untested / unused thus far."
+  
+  if os is linux
+  then
+    if command exists pacman
+    then
+      log "TODO: Implement for pacman."
+    #  pacman -S --noconfirm
+
+    elif command exists apt-get
+    then
+      sudo apt-get -y install build-essential libxml2-dev libnss3-dev libqb-dev groff
+
+    elif command exists yum
+    then
+      sudo yum install -y libuuid-devel glib2-devel libxml2-devel libxslt-devel libtool-ltdl-devel bzip2-devel libqb-devel nss-devel
+
+    elif command exists emerge
+    then
+      log "TODO: Tell wayne how to install pcre, openssl and zlib dev headers on gentoo."
+
+    else
+      log "TODO: Install zlib openssl pcre via curl, complile install."
+    fi
+  elif os is darwin
+  then
+    release="( $(sw_vers -productName) )"
+    log "Notes for ${system} $release for OSX be sure to have the latest XCode tools. "
+  fi
+  echo
+}
+
+corosync_configure()
+{
+  corosync_os_dependencies_install
+  trace_filter package || set -o xtrace
+  path enter "${sm_path}/src/corosync-${package_version}"
+  ./autogen.sh
+  ./configure --prefix="${install_path}" > /dev/null
+}
+
+corosync_postinstall()
+{
+  #files write append \
+  #  string "PATH=\"\$PATH:/usr/local/mysql/bin\" ; export PATH; " \
+  #  to "/etc/profile.d/mysql.sh"
+  #files chmod 0755 "/etc/profile.d/mysql.sh"
+}
