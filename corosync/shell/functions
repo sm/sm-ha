@@ -37,11 +37,11 @@ corosync_os_dependencies_install()
 
     elif command exists apt-get
     then
-      sudo apt-get -y install build-essential libxml2-dev libnss3-dev libqb-dev groff
+      sudo apt-get -y install build-essential libxml2-dev libnss3-dev libqb-dev groff autoconf
 
     elif command exists yum
     then
-      sudo yum install -y libuuid-devel glib2-devel libxml2-devel libxslt-devel libtool-ltdl-devel bzip2-devel libqb-devel nss-devel
+      sudo yum install -y libuuid-devel glib2-devel libxml2-devel libxslt-devel libtool-ltdl-devel bzip2-devel libqb-devel nss-devel autoconf
 
     elif command exists emerge
     then
